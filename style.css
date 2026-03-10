@@ -1,28 +1,50 @@
 body{
-background:#0f172a;
+
+background:#0b1a33;
 color:white;
+
 font-family:monospace;
 text-align:center;
+
+margin:0;
+padding:40px;
+
+}
+
+h1{
+
+margin-bottom:40px;
+font-size:32px;
+
 }
 
 svg{
-width:900px;
+
+width:1000px;
+max-width:90vw;
+
 display:block;
 margin:auto;
+
 }
+
+/* линия рисуется */
 
 path{
 
 stroke:#00ffa6;
-stroke-width:2;
+stroke-width:3;
 
-stroke-dasharray:2000;
-stroke-dashoffset:2000;
+stroke-dasharray:2500;
+stroke-dashoffset:2500;
 
-animation:draw 8s linear forwards;
+animation: drawLine 8s linear forwards;
+
 }
 
-@keyframes draw{
+/* анимация рисования */
+
+@keyframes drawLine{
 
 to{
 stroke-dashoffset:0;
