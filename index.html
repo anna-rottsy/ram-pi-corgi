@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Happy Pi Day</title>
@@ -8,25 +8,36 @@
 
 <body>
 
-<h1>Happy Pi Day!</h1>
+<h1>Happy Pi Day</h1>
 
-<svg viewBox="0 0 800 400">
+<svg viewBox="0 0 900 400">
 
-<path
-id="corgi"
-d="M80 250 
-   Q140 160 200 250
-   Q240 210 280 250
-   Q330 200 380 250
-   Q420 300 480 250
-   Q520 200 560 250
-   Q600 280 640 250"
+<path id="path"
+d="
+M80 260
+Q120 200 160 260
+Q190 230 220 260
+Q250 220 300 260
+Q340 300 380 260
+Q420 220 460 260
+Q500 300 540 260
+Q570 240 600 260
+
+Q620 240 640 260
+Q660 280 680 260
+
+L720 260
+
+A60 60 0 1 1 720 259
+A60 60 0 1 1 720 261
+"
 fill="none"
+stroke="white"
+stroke-width="2"
 />
 
-<text font-size="16">
-<textPath id="piText" href="#corgi" startOffset="0%">
-</textPath>
+<text font-size="14">
+<textPath id="piText" href="#path"></textPath>
 </text>
 
 </svg>
