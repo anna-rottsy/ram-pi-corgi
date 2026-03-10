@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <title>Happy Pi Day</title>
@@ -8,36 +9,37 @@
 
 <body>
 
-<h1>Happy Pi Day</h1>
+<h1>Happy Pi Day!</h1>
 
-<svg viewBox="0 0 900 400">
+<svg viewBox="0 0 1000 450">
 
-<path id="path"
+<path
+id="drawPath"
 d="
-M80 260
-Q120 200 160 260
-Q190 230 220 260
-Q250 220 300 260
-Q340 300 380 260
-Q420 220 460 260
-Q500 300 540 260
-Q570 240 600 260
+M120 300
+Q160 220 200 300
+Q230 260 260 300
+Q300 260 340 300
+Q380 340 420 300
+Q460 260 500 300
+Q540 340 580 300
+Q620 260 660 300
 
-Q620 240 640 260
-Q660 280 680 260
+Q680 280 700 300
+Q720 320 740 300
 
-L720 260
+L780 300
 
-A60 60 0 1 1 720 259
-A60 60 0 1 1 720 261
+A70 70 0 1 1 780 299
+A70 70 0 1 1 780 301
 "
 fill="none"
-stroke="white"
-stroke-width="2"
+stroke="#00ffa6"
+stroke-width="3"
 />
 
-<text font-size="14">
-<textPath id="piText" href="#path"></textPath>
+<text font-size="16" fill="white">
+<textPath id="piText" href="#drawPath" startOffset="0%"></textPath>
 </text>
 
 </svg>
