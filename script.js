@@ -1,17 +1,21 @@
 // Pi digits
-const piDigits = "31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
+const piDigits = "31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989";
 
 const container = document.getElementById('corgiContainer');
 const digits = [];
-const numDigits = 50;
+const numDigits = 60;
 
-// Path for digits to follow (around corgi body)
+// Create circular path around corgi
 const pathPoints = [];
-for (let i = 0; i <= 360; i += 2) {
+const centerX = 200;
+const centerY = 200;
+const radius = 140;
+
+for (let i = 0; i < 360; i += 3) {
     const angle = (i * Math.PI) / 180;
-    const x = 300 + Math.cos(angle) * 200 + Math.sin(angle * 3) * 30;
-    const y = 220 + Math.sin(angle) * 120;
-    pathPoints.push({x, y});
+    const x = centerX + Math.cos(angle) * radius;
+    const y = centerY + Math.sin(angle) * radius;
+    pathPoints.push({ x, y });
 }
 
 // Create digit elements
@@ -19,24 +23,27 @@ for (let i = 0; i < numDigits; i++) {
     const digit = document.createElement('div');
     digit.className = 'pi-digit';
     digit.textContent = piDigits[i % piDigits.length];
-    digit.style.animationDelay = `${i * 0.1}s`;
     container.appendChild(digit);
+    
     digits.push({
         element: digit,
         position: i * (pathPoints.length / numDigits),
-        speed: 0.5 + Math.random() * 0.5
+        speed: 0.8 + Math.random() * 0.4
     });
 }
 
-// Animate digits
+// Animate digits in a circle
 function animate() {
     digits.forEach((digit, index) => {
         const pathIndex = Math.floor(digit.position) % pathPoints.length;
         const point = pathPoints[pathIndex];
         
-        digit.element.style.left = `${point.x}px`;
-        digit.element.style.top = `${point.y}px`;
-        digit.element.style.transform = `rotate(${index * 7.2}deg)`;
+        digit.element.style.left = `${point.x - 8}px`;
+        digit.element.style.top = `${point.y - 8}px`;
+        
+        // Rotate digits around the circle
+        const rotation = (digit.position / pathPoints.length) * 360;
+        digit.element.style.transform = `rotate(${rotation}deg)`;
         
         digit.position += digit.speed;
         if (digit.position >= pathPoints.length) {
@@ -49,26 +56,37 @@ function animate() {
 
 animate();
 
-// Create floating clouds
-function createCloud() {
-    const cloud = document.createElement('div');
-    cloud.className = 'cloud';
-    cloud.style.width = `${100 + Math.random() * 100}px`;
-    cloud.style.height = `${40 + Math.random() * 30}px`;
-    cloud.style.top = `${50 + Math.random() * 150}px`;
-    cloud.style.left = '-200px';
-    cloud.style.animationDuration = `${15 + Math.random() * 10}s`;
-    document.body.appendChild(cloud);
-    
-    setTimeout(() => cloud.remove(), 25000);
-}
-
-setInterval(createCloud, 3000);
-
-// Animate pi number display
+// Animate pi number display - show more digits over time
 let piIndex = 0;
 const piDisplay = document.getElementById('piDisplay');
-setInterval(() => {
-    piIndex = (piIndex + 1) % (piDigits.length - 20);
-    piDisplay.textContent = '3.' + piDigits.substring(1, piIndex + 25);
-}, 500);
+const fullPiString = "3." + piDigits.substring(1);
+
+function updatePiDisplay() {
+    if (piIndex < fullPiString.length) {
+        piDisplay.textContent = fullPiString.substring(0, piIndex + 1);
+        piIndex++;
+        setTimeout(updatePiDisplay, 100);
+    }
+}
+
+// Start pi display animation after a short delay
+setTimeout(updatePiDisplay, 1000);
+
+// Add some sparkle effect occasionally
+function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'pi-digit';
+    sparkle.textContent = Math.floor(Math.random() * 10);
+    sparkle.style.color = '#fff';
+    sparkle.style.fontSize = '12px';
+    sparkle.style.left = `${Math.random() * 400}px`;
+    sparkle.style.top = `${Math.random() * 400}px`;
+    sparkle.style.opacity = '0.6';
+    container.appendChild(sparkle);
+    
+    setTimeout(() => {
+        sparkle.remove();
+    }, 2000);
+}
+
+setInterval(createSparkle, 2000);
