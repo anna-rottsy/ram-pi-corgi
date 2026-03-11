@@ -6,7 +6,7 @@ const pi =
 
 const textPath = document.getElementById("piText");
 
-textPath.textContent = pi.repeat(20);
+textPath.textContent = pi.repeat(30);
 
 let offset = 0;
 
