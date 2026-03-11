@@ -12,15 +12,13 @@ padding:40px;
 }
 
 h1{
-
-margin-bottom:40px;
 font-size:32px;
-
+margin-bottom:40px;
 }
 
 svg{
 
-width:1000px;
+width:1100px;
 max-width:90vw;
 
 display:block;
@@ -28,21 +26,17 @@ margin:auto;
 
 }
 
-/* линия рисуется */
-
 path{
 
 stroke:#00ffa6;
 stroke-width:3;
 
-stroke-dasharray:2500;
-stroke-dashoffset:2500;
+stroke-dasharray:5000;
+stroke-dashoffset:5000;
 
-animation: drawLine 8s linear forwards;
+animation: drawLine 10s linear forwards;
 
 }
-
-/* анимация рисования */
 
 @keyframes drawLine{
 
