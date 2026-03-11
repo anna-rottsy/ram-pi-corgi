@@ -1,50 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Happy Pi Day</title>
-<link rel="stylesheet" href="style.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Day Corgi</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Темный фон */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+        }
 
+        h1 {
+            color: #ffcc00;
+            text-shadow: 0 0 10px #ffcc00;
+            margin-bottom: 20px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        canvas {
+            display: block;
+            /* Маска для канваса, чтобы цифры были только внутри корги */
+            /* Мы используем SVG clip-path для точной формы */
+            clip-path: url(#corgi-clip); 
+        }
+
+        /* Стили для SVG (сама форма корги для маски) */
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Чтобы клики проходили сквозь */
+        }
+        
+        /* Рамка вокруг корги для красоты */
+        .border-shape {
+            fill: none;
+            stroke: #ffcc00;
+            stroke-width: 2;
+            opacity: 0.5;
+        }
+    </style>
+</head>
 <body>
 
-<h1>Happy Pi Day!</h1>
+    <h1>Happy Pi Day! 🥧</h1>
 
-<svg viewBox="0 0 1200 500">
+    <div class="canvas-container">
+        <!-- SVG Маска: Силуэт корги -->
+        <svg viewBox="0 0 200 200">
+            <defs>
+                <clipPath id="corgi-clip">
+                    <!-- Это path (контур) корги -->
+                    <path d="M145.5,55.5c-5.5-10-15-18-26-21c-3.5-1-7-1.5-10.5-1.5c-6,0-11.5,1.5-16.5,4c-3-1.5-6.5-2.5-10-2.5
+                    c-10,0-18.5,6-22.5,14.5c-2.5-0.5-5-0.5-7.5,0c-8.5,2-15,9.5-15,18.5c0,1.5,0.5,3,1,4.5c-3,3.5-5,8-5,13c0,9,6.5,16.5,15,18.5
+                    c0.5,1.5,1,3,1,4.5c0,10,8,18,18,18c1,0,2,0,3-0.5c2.5,3,6.5,5,10.5,5c6,0,11-3,14-7.5c3,0.5,6,1,9,1c10,0,18-8,18-18
+                    c0-1.5-0.5-3-1-4.5c8.5-2,15-9.5,15-18.5c0-5-2-9.5-5-13c0.5-1.5,1-3,1-4.5C155.5,64.5,152,60,145.5,55.5z"/>
+                </clipPath>
+            </defs>
+            <!-- Рисуем контур корги для красоты -->
+            <use href="#corgi-clip" class="border-shape" />
+        </svg>
 
-<path
-id="drawPath"
+        <!-- Канвас, где будут рисоваться цифры -->
+        <canvas id="piCanvas"></canvas>
+    </div>
 
-d="
-M348 793 c7 -3 16 -2 19 1 4 3 -2 6 -13 5 -11 0 -14 -3 -6 -6
-M364 785
-c-120 -60 -200 -180 -200 -310
-c0 -90 40 -160 110 -200
-c70 -40 140 -45 210 -10
-c60 30 120 30 180 0
-c70 -35 140 -30 210 10
-c70 40 110 110 110 200
-c0 130 -80 250 -200 310
+    <script>
+        const canvas = document.getElementById('piCanvas');
+        const ctx = canvas.getContext('2d');
 
-L850 260
+        // Устанавливаем размер канваса равным размеру контейнера
+        canvas.width = 400;
+        canvas.height = 400;
 
-A80 80 0 1 1 850 259
-A80 80 0 1 1 850 261
-"
-
-fill="none"
-stroke="#00ffa6"
-stroke-width="3"
-/>
-
-<text font-size="16" fill="white">
-<textPath id="piText" href="#drawPath" startOffset="0%"></textPath>
-</text>
-
-</svg>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+        // Первые 2000 знаков числа Пи
+        const piString = "3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141273724587006606315588174881520920962829254091715364367892590360011330530548820466521384146951941511609433057270365759591953092186117381932611793105118548074462379962749567351885752724891227938183011949129833673362440656643086021394946395224737190702179860943702770539217176293176752384674818467669405132000568127145263560827785771342757789609173637178721468440901224953430146549585371050792279689258923542019956112129021960864034418159813629774771309960518707211349999998372978049951059731732816096
