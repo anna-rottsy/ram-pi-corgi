@@ -7,66 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🥧 Happy Pi Day! 🐕</h1>
-    
-    <div class="corgi-container" id="corgiContainer">
-        <svg class="corgi-silhouette" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="corgiOrange" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#ff8c42;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#ff6b35;stop-opacity:1" />
-                </linearGradient>
-                <linearGradient id="corgiWhite" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#f0f0f0;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            
-            <!-- Tail -->
-            <ellipse cx="80" cy="220" rx="35" ry="45" fill="url(#corgiOrange)" transform="rotate(-20 80 220)"/>
-            
-            <!-- Back leg -->
-            <ellipse cx="140" cy="300" rx="30" ry="50" fill="url(#corgiOrange)"/>
-            <ellipse cx="135" cy="345" rx="25" ry="15" fill="url(#corgiWhite)"/>
-            
-            <!-- Front leg -->
-            <ellipse cx="420" cy="300" rx="28" ry="48" fill="url(#corgiOrange)"/>
-            <ellipse cx="418" cy="343" rx="23" ry="14" fill="url(#corgiWhite)"/>
-            
-            <!-- Main body -->
-            <ellipse cx="280" cy="230" rx="180" ry="90" fill="url(#corgiOrange)"/>
-            
-            <!-- White chest/belly -->
-            <ellipse cx="320" cy="260" rx="100" ry="50" fill="url(#corgiWhite)"/>
-            
-            <!-- Head -->
-            <ellipse cx="480" cy="160" rx="75" ry="65" fill="url(#corgiOrange)"/>
-            
-            <!-- White face marking -->
-            <ellipse cx="490" cy="170" rx="40" ry="45" fill="url(#corgiWhite)"/>
-            
-            <!-- Ear -->
-            <polygon points="450,110 475,140 490,105" fill="url(#corgiOrange)"/>
-            <polygon points="495,100 505,135 520,105" fill="url(#corgiOrange)"/>
-            
-            <!-- Eye -->
-            <ellipse cx="505" cy="150" rx="8" ry="10" fill="#2d3436"/>
-            <circle cx="508" cy="148" r="3" fill="white"/>
-            
-            <!-- Nose -->
-            <ellipse cx="535" cy="165" rx="8" ry="6" fill="#2d3436"/>
-            
-            <!-- Smile -->
-            <path d="M 520 175 Q 535 185 545 175" stroke="#2d3436" stroke-width="3" fill="none"/>
-            
-            <!-- Ground shadow -->
-            <ellipse cx="300" cy="360" rx="250" ry="20" fill="rgba(0,0,0,0.2)"/>
-        </svg>
-    </div>
+    <div class="container">
+        <header>
+            <h1>Happy Pi Day!</h1>
+            <div class="icons">
+                <img class="corgi-icon" width="64" height="64" src="https://img.icons8.com/color/48/corgi.png" alt="corgi"/>
+                <img class="pie-icon" width="64" height="64" src="https://img.icons8.com/color/48/pie.png" alt="pie"/>
+            </div>
+        </header>
 
-    <div class="pi-info">
-        <p>π ≈ <span class="pi-number" id="piDisplay">3.14159265358979323846</span></p>
-        <p style="margin-top: 10px; font-size: 0.9em;">March 14 - International Pi Day</p>
+        <div class="corgi-container" id="corgiContainer">
+            <img class="corgi-main" src="https://img.icons8.com/color/96/corgi.png" alt="Corgi"/>
+            <div id="piDigitsContainer"></div>
+        </div>
+
+        <div class="pi-info">
+            <p class="pi-symbol">π ≈ <span id="piDisplay">3.141592653589793238462643383279</span></p>
+            <p class="date">March 14 - International Pi Day</p>
+        </div>
     </div>
 
     <script src="script.js"></script>
