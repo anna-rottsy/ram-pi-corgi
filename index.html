@@ -4,116 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pi Day Corgi - 3.14</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
-
-        h1 {
-            color: white;
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px white; }
-            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px #fff, 0 0 30px #ff6b6b; }
-        }
-
-        .corgi-container {
-            position: relative;
-            width: 600px;
-            height: 400px;
-        }
-
-        .corgi-silhouette {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-        }
-
-        .pi-digit {
-            position: absolute;
-            color: #ff6b6b;
-            font-weight: bold;
-            font-size: 18px;
-            pointer-events: none;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .pi-info {
-            color: white;
-            margin-top: 30px;
-            text-align: center;
-            font-size: 1.2em;
-            background: rgba(255,255,255,0.2);
-            padding: 20px 40px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .pi-number {
-            font-family: 'Courier New', monospace;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #ffd93d;
-        }
-
-        .cloud {
-            position: absolute;
-            background: white;
-            border-radius: 100px;
-            opacity: 0.8;
-            animation: drift 20s infinite;
-        }
-
-        .cloud::before {
-            content: '';
-            position: absolute;
-            background: white;
-            border-radius: 100px;
-        }
-
-        @keyframes drift {
-            from { transform: translateX(-200px); }
-            to { transform: translateX(calc(100vw + 200px)); }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>🥧 Happy Pi Day! 🐕</h1>
     
     <div class="corgi-container" id="corgiContainer">
-        <!-- SVG Corgi Silhouette -->
         <svg class="corgi-silhouette" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-            <!-- Clouds background -->
-            <ellipse cx="100" cy="80" rx="60" ry="40" fill="#a8e6cf" opacity="0.6"/>
-            <ellipse cx="150" cy="70" rx="50" ry="35" fill="#a8e6cf" opacity="0.6"/>
-            <ellipse cx="500" cy="100" rx="70" ry="45" fill="#a8e6cf" opacity="0.6"/>
-            
-            <!-- Corgi Body -->
             <defs>
                 <linearGradient id="corgiOrange" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" style="stop-color:#ff8c42;stop-opacity:1" />
@@ -172,81 +69,6 @@
         <p style="margin-top: 10px; font-size: 0.9em;">March 14 - International Pi Day</p>
     </div>
 
-    <script>
-        // Pi digits
-        const piDigits = "31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
-        
-        const container = document.getElementById('corgiContainer');
-        const digits = [];
-        const numDigits = 50;
-        
-        // Path for digits to follow (around corgi body)
-        const pathPoints = [];
-        for (let i = 0; i <= 360; i += 2) {
-            const angle = (i * Math.PI) / 180;
-            const x = 300 + Math.cos(angle) * 200 + Math.sin(angle * 3) * 30;
-            const y = 220 + Math.sin(angle) * 120;
-            pathPoints.push({x, y});
-        }
-        
-        // Create digit elements
-        for (let i = 0; i < numDigits; i++) {
-            const digit = document.createElement('div');
-            digit.className = 'pi-digit';
-            digit.textContent = piDigits[i % piDigits.length];
-            digit.style.animationDelay = `${i * 0.1}s`;
-            container.appendChild(digit);
-            digits.push({
-                element: digit,
-                position: i * (pathPoints.length / numDigits),
-                speed: 0.5 + Math.random() * 0.5
-            });
-        }
-        
-        // Animate digits
-        function animate() {
-            digits.forEach((digit, index) => {
-                const pathIndex = Math.floor(digit.position) % pathPoints.length;
-                const point = pathPoints[pathIndex];
-                
-                digit.element.style.left = `${point.x}px`;
-                digit.element.style.top = `${point.y}px`;
-                digit.element.style.transform = `rotate(${index * 7.2}deg)`;
-                
-                digit.position += digit.speed;
-                if (digit.position >= pathPoints.length) {
-                    digit.position = 0;
-                }
-            });
-            
-            requestAnimationFrame(animate);
-        }
-        
-        animate();
-        
-        // Create floating clouds
-        function createCloud() {
-            const cloud = document.createElement('div');
-            cloud.className = 'cloud';
-            cloud.style.width = `${100 + Math.random() * 100}px`;
-            cloud.style.height = `${40 + Math.random() * 30}px`;
-            cloud.style.top = `${50 + Math.random() * 150}px`;
-            cloud.style.left = '-200px';
-            cloud.style.animationDuration = `${15 + Math.random() * 10}s`;
-            document.body.appendChild(cloud);
-            
-            setTimeout(() => cloud.remove(), 25000);
-        }
-        
-        setInterval(createCloud, 3000);
-        
-        // Animate pi number display
-        let piIndex = 0;
-        const piDisplay = document.getElementById('piDisplay');
-        setInterval(() => {
-            piIndex = (piIndex + 1) % (piDigits.length - 20);
-            piDisplay.textContent = '3.' + piDigits.substring(1, piIndex + 25);
-        }, 500);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
